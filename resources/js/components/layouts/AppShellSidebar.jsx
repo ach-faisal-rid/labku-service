@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from '@inertiajs/react';
-import { FlaskConical, LayoutDashboard, Settings, User, Users, X, ChevronDown, ChevronRight, Beaker, Microscope, Box } from 'lucide-react';
+import { FlaskConical, LayoutDashboard, Settings, User, Users, X, ChevronDown, ChevronRight, Beaker, Microscope, Box, Smartphone, Server } from 'lucide-react';
 import { Button } from '../ui/button';
 import { cn } from '../../lib/utils';
 
@@ -23,13 +23,13 @@ function NavItem({ href, icon: Icon, label, collapsed = false, mobile = false, o
 
     const content = (
         <>
-            <Icon className="h-4 w-4 text-zinc-600 shrink-0" />
+            <Icon className="w-4 h-4 text-zinc-600 shrink-0" />
             {collapsed && !mobile ? null : (
                 <>
                     <span className="flex-1">{label}</span>
                     {hasChildren && (
                         <span className="ml-auto">
-                            {isOpen ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+                            {isOpen ? <ChevronDown className="w-3 h-3" /> : <ChevronRight className="w-3 h-3" />}
                         </span>
                     )}
                 </>
@@ -45,9 +45,9 @@ function NavItem({ href, icon: Icon, label, collapsed = false, mobile = false, o
                     {content}
                 </div>
                 {/* Tooltip style dropdown for collapsed mode */}
-                <div className="absolute left-full top-0 ml-2 hidden group-hover:block z-50 min-w-40 rounded-md border border-zinc-200 bg-white shadow-lg">
+                <div className="absolute top-0 z-50 hidden ml-2 bg-white border rounded-md shadow-lg left-full group-hover:block min-w-40 border-zinc-200">
                     <div className="py-1">
-                        <div className="px-3 py-2 text-xs font-semibold text-zinc-500 border-b">{label}</div>
+                        <div className="px-3 py-2 text-xs font-semibold border-b text-zinc-500">{label}</div>
                         {nestedItems.map((child, idx) => (
                             <NavItem
                                 key={idx}
@@ -117,7 +117,15 @@ const menuItems = [
         children: [
             { href: '/laboratorium/category', icon: Beaker, label: 'Category' },
             { href: '/laboratorium/equipment', icon: Microscope, label: 'Equipment' },
-            { href: '/laboratorium/supplies', icon: Box, label: 'Supplies' },
+        ]
+    },
+    {
+        href: '#',
+        icon: Server,
+        label: 'Services',
+        children: [
+            { href: '/services/customer', icon: Users, label: 'Customer' },
+            { href: '/services/device', icon: Smartphone, label: 'Device' },
         ]
     },
     { href: '/pengguna', icon: Users, label: 'Pengguna' },
@@ -142,8 +150,8 @@ export default function AppShellSidebar({
                     !sidebarVisible && 'md:hidden'
                 )}
             >
-                <div className="flex h-14 items-center gap-2 px-4">
-                    <FlaskConical className="h-5 w-5 text-indigo-600 shrink-0" />
+                <div className="flex items-center gap-2 px-4 h-14">
+                    <FlaskConical className="w-5 h-5 text-indigo-600 shrink-0" />
                     {!sidebarCollapsed && (
                         <div>
                             <div className="text-sm font-semibold leading-none">Labku Service</div>
@@ -152,7 +160,7 @@ export default function AppShellSidebar({
                     )}
                 </div>
 
-                <nav className="flex-1 space-y-1 px-2 py-3 overflow-y-auto">
+                <nav className="flex-1 px-2 py-3 space-y-1 overflow-y-auto">
                     {menuItems.map((item, idx) => (
                         <NavItem
                             key={idx}
@@ -169,17 +177,17 @@ export default function AppShellSidebar({
             {/* Sidebar (mobile) */}
             <div className={cn('md:hidden', mobileOpen ? 'block' : 'hidden')}>
                 <div className="fixed inset-0 z-50 bg-black/40" onClick={() => setMobileOpen(false)} />
-                <div className="fixed inset-y-0 left-0 z-50 w-72 bg-white shadow-xl overflow-y-auto">
-                    <div className="flex h-14 items-center justify-between border-b border-zinc-200 px-4 sticky top-0 bg-white">
+                <div className="fixed inset-y-0 left-0 z-50 overflow-y-auto bg-white shadow-xl w-72">
+                    <div className="sticky top-0 flex items-center justify-between px-4 bg-white border-b h-14 border-zinc-200">
                         <div className="flex items-center gap-2">
-                            <FlaskConical className="h-5 w-5 text-indigo-600" />
+                            <FlaskConical className="w-5 h-5 text-indigo-600" />
                             <span className="text-sm font-semibold">Labku Service</span>
                         </div>
                         <Button variant="ghost" size="icon" aria-label="Close menu" onClick={() => setMobileOpen(false)}>
-                            <X className="h-5 w-5" />
+                            <X className="w-5 h-5" />
                         </Button>
                     </div>
-                    <nav className="space-y-1 p-2 pb-4">
+                    <nav className="p-2 pb-4 space-y-1">
                         {menuItems.map((item, idx) => (
                             <NavItem
                                 key={idx}

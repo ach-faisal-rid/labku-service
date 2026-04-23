@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { usePage } from '@inertiajs/react';
+import { toast } from 'sonner';
 import { cn } from '../../lib/utils';
 import AppShellHeader from './AppShellHeader';
 import AppShellSidebar from './AppShellSidebar';
@@ -24,8 +25,18 @@ function writeBool(key, value) {
 }
 
 export default function AppShell({ title, children }) {
-    const { auth } = usePage().props;
+    const { auth, flash } = usePage().props;
     const user = auth?.user;
+
+    useEffect(() => {
+        if (flash?.success) {
+            toast.success(flash.success);
+        }
+        if (flash?.error) {
+            toast.error(flash.error);
+        }
+    }, [flash]);
+
     const isDesktop = useMemo(() => {
         if (typeof window === 'undefined') return true;
         return window.matchMedia('(min-width: 768px)').matches;

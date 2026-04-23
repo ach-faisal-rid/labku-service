@@ -2,6 +2,8 @@ import { Link } from '@inertiajs/react';
 import { FlaskConical, LogOut, Menu, User } from 'lucide-react';
 import { Button } from '../ui/button';
 import { cn } from '../../lib/utils';
+import SignalStatus from '../SignalStatus';
+
 
 export default function AppShellHeader({
     user,
@@ -51,6 +53,10 @@ export default function AppShellHeader({
                     >
                         {sidebarCollapsed ? 'Expand' : 'Collapse'}
                     </Button>
+                    
+                    <div className="hidden sm:block">
+                        <SignalStatus />
+                    </div>
 
                     {user ? (
                         <div className="relative">

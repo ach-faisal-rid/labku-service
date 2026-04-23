@@ -1,5 +1,5 @@
 import React from 'react';
-import { Edit, Plus, Trash2, Link as LinkIcon, Banknote } from 'lucide-react';
+import { Edit, Plus, Trash2, Link as LinkIcon, Banknote, AlertCircle } from 'lucide-react';
 import ImageUploader from './ImageUploader';
 
 const EquipmentForm = ({ 
@@ -87,9 +87,18 @@ const EquipmentForm = ({
                             value={data.code}
                             onChange={handleChange}
                             required
-                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"
+                            className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:border-transparent transition ${
+                                equipments.some(e => e.code === data.code && e.id !== editId) 
+                                ? 'border-red-500 bg-red-50 focus:ring-red-500/20' 
+                                : 'border-gray-300 focus:ring-blue-500'
+                            }`}
                             placeholder="Contoh: LAB-001"
                         />
+                        {equipments.some(e => e.code === data.code && e.id !== editId) && (
+                            <p className="text-red-600 text-[10px] mt-1 font-bold flex items-center gap-1">
+                                <AlertCircle size={10} /> Kode sudah digunakan alat lain!
+                            </p>
+                        )}
                         {errors.code && <p className="text-red-500 text-xs mt-1">{errors.code}</p>}
                     </div>
                     <div className="md:col-span-2">

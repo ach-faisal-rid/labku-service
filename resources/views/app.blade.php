@@ -5,6 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <title inertia>{{ config('app.name', 'Labku Service') }}</title>
+        <meta name="description" content="Labku Service - Solusi service gadget profesional untuk Handphone, Laptop, dan Tablet dengan standar kualitas tertinggi dan bergaransi.">
+
         @viteReactRefresh
         @vite(['resources/css/app.css', 'resources/js/app.jsx'])
         @inertiaHead

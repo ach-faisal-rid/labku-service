@@ -217,4 +217,24 @@ class EquipmentController extends Controller
         $equipment->delete();
         return redirect()->back()->with('success', 'Equipment deleted successfully.');
     }
+
+    public function bulkStore(Request $request)
+    {
+        $request->validate([
+            'items' => 'required|array',
+            'items.*.name' => 'required|string|max:255',
+            'items.*.code' => 'required|string|max:255|unique:equipment,code',
+            'items.*.category_id' => 'required|exists:categories,id',
+            'items.*.type' => 'required|string|max:255',
+            'items.*.status' => 'required|string|max:255',
+        ]);
+
+        DB::transaction(function () use ($request) {
+            foreach ($request->input('items') as $item) {
+                Equipment::create($item);
+            }
+        });
+
+        return redirect()->back()->with('success', count($request->items) . ' items imported successfully.');
+    }
 }

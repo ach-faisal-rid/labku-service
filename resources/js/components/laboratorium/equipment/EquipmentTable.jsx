@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Filter, Package, Edit, Trash2, ChevronLeft, ChevronRight, Link as LinkIcon, Video, FileText, ExternalLink } from 'lucide-react';
+import { Search, Filter, Package, Edit, Trash2, ChevronLeft, ChevronRight, Link as LinkIcon, Video, FileText, ExternalLink, Copy, QrCode } from 'lucide-react';
 
 const EquipmentTable = ({
     equipments,
@@ -18,7 +18,9 @@ const EquipmentTable = ({
     indexOfFirstItem,
     indexOfLastItem,
     handleEdit,
+    handleDuplicate,
     handleDeleteClick,
+    handleShowQR,
     getStatusConfig,
     getCategoryName,
     openLightbox
@@ -232,6 +234,20 @@ const EquipmentTable = ({
                                                         title="Edit"
                                                     >
                                                         <Edit size={18} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleShowQR(equipment)}
+                                                        className="p-1 text-purple-600 hover:text-purple-800 hover:bg-purple-50 rounded transition"
+                                                        title="QR Code"
+                                                    >
+                                                        <QrCode size={18} />
+                                                    </button>
+                                                    <button
+                                                        onClick={() => handleDuplicate(equipment)}
+                                                        className="p-1 text-green-600 hover:text-green-800 hover:bg-green-50 rounded transition"
+                                                        title="Duplikat"
+                                                    >
+                                                        <Copy size={18} />
                                                     </button>
                                                     <button
                                                         onClick={() => handleDeleteClick(equipment)}
